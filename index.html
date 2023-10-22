@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CABS Record</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 100%;
+            width: 50%; /* Adjust as needed for the desired width */
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 100px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"] {
+            width: 97%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #007BFF; /* Colorful border */
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            input[type="text"],
+            input[type="date"],
+            input[type="time"],
+            input[type="number"] {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>UNION CABS FEEDBACK</h2>
+    <form method="post" name="google-sheet">
+        <label for="driverId">Your Name:</label>
+        <input type="text" id="driverId" name="CustomerName" required>
+
+        <label for="carNumber">Driver's Name or ID:</label>
+        <input type="text" id="carNumber" name="DriverName" required>
+
+        <label for="driverName">Date and Time of the Ride:</label>
+        <input type="text" id="driverName" name="dateTimeRide" required>
+
+        <label for="employeeName">Booking/Reservation Number:</label>
+        <input type="text" id="employeeName" name="bookNumber" required>
+
+        <label for="employeeName">Driver's Behavior:</label>
+        <input type="text" id="employeeName" name="driverBehavior" required>
+
+        <label for="employeeName">Safety:</label>
+        <input type="text" id="employeeName" name="safty" required>
+
+        <label for="employeeName">Punctuality:</label>
+        <input type="text" id="employeeName" name="Punctuality" required>
+
+        <label for="employeeName">Suggestions for Improvement:</label>
+        <input type="text" id="employeeName" name="Suggestions" required>
+
+        <label for="employeeName">Would you use this service again?:</label>
+        <input type="text" id="employeeName" name="againDrive" required>
+
+        <input type="submit" value="submit">
+    </form>
+</body>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz3A4z2uGLauiU6Bz4MAt1Jg_jo39knSkC213-NkDvT11ax4q8jSSyiTja2R68No7pNBg/exec';
+    const form = document.forms['google-sheet'];
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const formDataObject = {};
+        formData.forEach((value, key) => {
+        formDataObject[key] = value;
+        });
+        // console.log(formDataObject);
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => alert('Your feedback Subimitted Sucessfully Thank You !!'))
+            .catch(error => console.error('error', error.message));
+            form.reset();
+    });
+</script>
+</html>
